@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>镜前 · 先看方向，再去理发店</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#211B24;
+    --ink-soft:#4A3F4C;
+    --paper:#F3E9E3;
+    --paper-dim:#EADFD8;
+    --rose:#B75D52;
+    --gold:#B99356;
+    --plum:#5C2A44;
+    --line: rgba(33,27,36,0.12);
+    --radius: 18px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .label{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--rose);
+  }
+  a{color:inherit;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 24px;}
+
+  /* NAV */
+  nav.top{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,233,227,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.top .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:700; font-size:20px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--rose);display:inline-block;}
+  .nav-cta{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    border:1px solid var(--ink);
+    padding:9px 16px;
+    border-radius:999px;
+    cursor:pointer;
+    background:transparent;
+    color:var(--ink);
+    transition:.2s;
+  }
+  .nav-cta:hover{background:var(--ink); color:var(--paper);}
+
+  /* HERO */
+  header.hero{
+    padding:72px 0 56px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:48px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:44px;
+    line-height:1.15;
+    margin-bottom:20px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--rose);
+  }
+  .hero p.sub{
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:440px;
+    margin-bottom:28px;
+  }
+  .btn-primary{
+    font-family:'Space Mono', monospace;
+    font-size:14px;
+    background:var(--ink);
+    color:var(--paper);
+    border:none;
+    padding:15px 26px;
+    border-radius:999px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition:transform .15s ease, background .2s;
+  }
+  .btn-primary:hover{background:var(--plum); transform:translateY(-1px);}
+  .btn-ghost{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    background:transparent;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    padding:14px 22px;
+    border-radius:999px;
+    cursor:pointer;
+  }
+
+  /* MIRROR ILLUSTRATION */
+  .mirror-frame{
+    position:relative;
+    width:100%;
+    aspect-ratio: 4/5;
+    border-radius:28px;
+    background:linear-gradient(155deg, var(--plum) 0%, var(--ink) 100%);
+    overflow:hidden;
+    box-shadow: 0 30px 60px -20px rgba(33,27,36,0.35);
+  }
+  .mirror-frame svg{position:absolute; inset:0; width:100%; height:100%;}
+  .mirror-caption{
+    position:absolute; bottom:18px; left:18px; right:18px;
+    color:var(--paper);
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    opacity:0.75;
+  }
+
+  /* PROCESS */
+  section.process{padding:64px 0; border-top:1px solid var(--line);}
+  .process-head{max-width:520px; margin-bottom:40px;}
+  .process-head h2{font-size:30px; margin-top:10px;}
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .step{
+    background:var(--paper-dim);
+    border-radius:var(--radius);
+    padding:26px 22px;
+    position:relative;
+  }
+  .step .num{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    color:var(--rose);
+    margin-bottom:14px;
+    display:block;
+  }
+  .step h3{font-size:18px; margin-bottom:8px;}
+  .step p{font-size:14px; color:var(--ink-soft); margin:0;}
+
+  /* DEMO */
+  section.demo{padding:64px 0; border-top:1px solid var(--line);}
+  .demo-head{max-width:560px; margin-bottom:36px;}
+  .demo-head h2{font-size:30px; margin-top:10px;}
+  .demo-box{
+    background:var(--ink);
+    border-radius:24px;
+    padding:36px;
+    color:var(--paper);
+    min-height:420px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .upload-zone{
+    border:1.5px dashed rgba(243,233,227,0.35);
+    border-radius:18px;
+    padding:40px 24px;
+    width:100%;
+    max-width:360px;
+    cursor:pointer;
+    transition:.2s;
+  }
+  .upload-zone:hover{border-color:var(--gold);}
+  .upload-zone input{display:none;}
+  .upload-icon{width:44px; height:44px; margin:0 auto 16px;}
+  .upload-zone p.main{font-family:'Fraunces', serif; font-size:18px; margin-bottom:6px;}
+  .upload-zone p.hint{font-size:13px; color:rgba(243,233,227,0.6); margin:0;}
+
+  .preview-stage{display:none; width:100%; flex-direction:column; align-items:center;}
+  .photo-frame{
+    width:200px; height:200px; border-radius:50%;
+    overflow:hidden; border:3px solid var(--gold);
+    margin-bottom:22px;
+  }
+  .photo-frame img{width:100%; height:100%; object-fit:cover;}
+
+  .analyzing{display:flex; align-items:center; gap:12px; font-family:'Space Mono',monospace; font-size:13px; color:var(--gold);}
+  .dotpulse{width:8px;height:8px;border-radius:50%;background:var(--gold); animation:pulse 1s infinite ease-in-out;}
+  .dotpulse:nth-child(2){animation-delay:.2s;}
+  .dotpulse:nth-child(3){animation-delay:.4s;}
+  @keyframes pulse{0%,100%{opacity:.25; transform:scale(0.8);} 50%{opacity:1; transform:scale(1);}}
+
+  .results{display:none; width:100%;}
+  .results .r-head{margin-bottom:22px;}
+  .results .r-head .label{color:var(--gold);}
+  .results .r-head h3{font-family:'Fraunces',serif; font-size:22px; color:var(--paper); margin-top:8px;}
+  .style-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:14px;
+    width:100%; text-align:left;
+  }
+  .style-card{
+    background:rgba(243,233,227,0.06);
+    border:1px solid rgba(243,233,227,0.14);
+    border-radius:16px;
+    padding:16px;
+    transition:.2s;
+  }
+  .style-card:hover{border-color:var(--gold); background:rgba(243,233,227,0.1);}
+  .style-card .icon{width:100%; height:64px; margin-bottom:10px;}
+  .style-card h4{font-family:'Fraunces',serif; font-size:16px; color:var(--paper); margin:0 0 4px;}
+  .style-card p{font-size:12.5px; color:rgba(243,233,227,0.65); margin:0 0 12px;}
+  .style-card button{
+    width:100%;
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    background:var(--gold);
+    color:var(--ink);
+    border:none;
+    padding:9px 0;
+    border-radius:999px;
+    cursor:pointer;
+  }
+  .style-card button:hover{background:var(--rose); color:var(--paper);}
+
+  .disclaimer{
+    margin-top:24px;
+    font-size:12px;
+    color:rgba(243,233,227,0.45);
+    max-width:420px;
+  }
+
+  /* POLL */
+  .poll{
+    margin-top:28px;
+    width:100%;
+    background:rgba(243,233,227,0.06);
+    border:1px solid rgba(243,233,227,0.14);
+    border-radius:16px;
+    padding:20px;
+    display:none;
+  }
+  .poll p{font-size:14px; color:var(--paper); margin:0 0 12px;}
+  .poll-opts{display:flex; gap:10px; flex-wrap:wrap;}
+  .poll-opts button{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    background:transparent;
+    border:1px solid rgba(243,233,227,0.35);
+    color:var(--paper);
+    padding:9px 16px;
+    border-radius:999px;
+    cursor:pointer;
+  }
+  .poll-opts button:hover, .poll-opts button.picked{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .poll-thanks{font-size:13px; color:var(--gold); margin-top:10px; display:none;}
+
+  /* MODAL */
+  .modal-mask{
+    display:none; position:fixed; inset:0; background:rgba(33,27,36,0.55);
+    z-index:100; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal{
+    background:var(--paper); border-radius:20px; padding:32px; max-width:380px; width:100%;
+  }
+  .modal h3{font-size:20px; margin-bottom:6px;}
+  .modal p.sub{font-size:13px; color:var(--ink-soft); margin-bottom:20px;}
+  .modal label{font-size:12px; font-family:'Space Mono',monospace; color:var(--ink-soft); display:block; margin-bottom:6px;}
+  .modal input{
+    width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line);
+    background:#fff; font-family:'Manrope',sans-serif; font-size:14px; margin-bottom:16px;
+  }
+  .modal input:focus{outline:2px solid var(--gold); border-color:var(--gold);}
+  .modal .row{display:flex; gap:10px;}
+  .modal-close{
+    background:transparent; border:none; font-size:13px; color:var(--ink-soft); cursor:pointer; margin-top:4px;
+  }
+  .modal-success{display:none; text-align:center;}
+  .modal-success .check{font-size:36px; margin-bottom:10px;}
+
+  .shot-card{
+    background:linear-gradient(155deg, var(--plum) 0%, var(--ink) 100%);
+    border-radius:16px;
+    padding:20px;
+    color:var(--paper);
+    text-align:left;
+    margin-bottom:14px;
+  }
+  .shot-card-title{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .shot-card-line{
+    font-family:'Fraunces', serif;
+    font-size:15px;
+    margin-bottom:6px;
+  }
+  .shot-card-foot{
+    margin-top:12px;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    color:rgba(243,233,227,0.5);
+  }
+  .wechat-tip{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    text-align:left;
+    margin:0;
+  }
+  .wechat-tip strong{color:var(--rose);}
+
+  footer{
+    padding:40px 0 60px;
+    border-top:1px solid var(--line);
+    text-align:center;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  footer button.admin-link{
+    background:none; border:none; color:var(--ink-soft); text-decoration:underline;
+    cursor:pointer; font-size:12px; font-family:inherit; margin-top:8px;
+  }
+
+  .admin-panel{
+    display:none; max-width:640px; margin:0 auto 60px; padding:0 24px;
+  }
+  .admin-panel .box{
+    background:var(--paper-dim); border-radius:16px; padding:22px; font-size:13px;
+  }
+  .admin-panel table{width:100%; border-collapse:collapse; margin-top:12px; font-size:12.5px;}
+  .admin-panel th, .admin-panel td{text-align:left; padding:6px 8px; border-bottom:1px solid var(--line);}
+
+  @media (max-width:760px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:32px;}
+    .steps{grid-template-columns:1fr;}
+    .style-grid{grid-template-columns:1fr;}
+    .demo-box{padding:24px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>镜前</div>
+    <button class="nav-cta" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">开始体验</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="label">先看方向 · 再进店</p>
+      <h1>剪之前，<br>先在<em>镜前</em>看一眼。</h1>
+      <p class="sub">上传一张正脸照，我们帮你先想清楚方向——圆脸适合什么、想减龄该往哪剪。带着方向去店里，跟发型师聊起来更有底，也更不容易踩雷。</p>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">上传照片试试 →</button>
+        <button class="btn-ghost" onclick="document.getElementById('process').scrollIntoView({behavior:'smooth'})">怎么用</button>
+      </div>
+    </div>
+    <div class="mirror-frame">
+      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#B99356" stop-opacity="0.5"/>
+            <stop offset="1" stop-color="#B75D52" stop-opacity="0.2"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="400" height="500" fill="url(#g1)" opacity="0.3"/>
+        <ellipse cx="200" cy="220" rx="86" ry="150" fill="#F3E9E3" opacity="0.08"/>
+        <path d="M120 170 Q200 60 280 170 Q300 260 265 330 Q200 380 135 330 Q100 260 120 170 Z" fill="none" stroke="#F3E9E3" stroke-width="1.4" opacity="0.55"/>
+        <path d="M130 190 Q140 100 200 90 Q260 100 270 190" fill="none" stroke="#B99356" stroke-width="2.2" opacity="0.85"/>
+        <circle cx="168" cy="235" r="4" fill="#F3E9E3" opacity="0.6"/>
+        <circle cx="232" cy="235" r="4" fill="#F3E9E3" opacity="0.6"/>
+        <path d="M180 275 Q200 288 220 275" fill="none" stroke="#F3E9E3" stroke-width="1.6" opacity="0.5"/>
+        <line x1="200" y1="60" x2="200" y2="440" stroke="#F3E9E3" stroke-width="1" opacity="0.15" stroke-dasharray="2 6"/>
+      </svg>
+      <div class="mirror-caption">概念示意 · 实际效果以你的上传为准</div>
+    </div>
+  </div>
+</header>
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="process-head">
+      <p class="label">三步</p>
+      <h2>不用去店里，先心里有数</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>上传正脸照</h3>
+        <p>光线均匀、露出发际线的自拍就可以，越清晰效果参考价值越高。</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>看几个推荐方向</h3>
+        <p>根据脸型给出几种参考方向，附上"为什么适合"的理由，不是随便甩一堆发型。</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>带着方向去店里调整</h3>
+        <p>这是一个"参考方向"工具，最终效果需要发型师根据发质、脸型现场微调——把它当沟通起点，而不是承诺。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="demo" id="demo">
+  <div class="wrap">
+    <div class="demo-head">
+      <p class="label">体验区</p>
+      <h2>上传一张照片，看看方向</h2>
+    </div>
+    <div class="demo-box">
+
+      <div class="upload-zone" id="uploadZone">
+        <svg class="upload-icon" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="21" stroke="#B99356" stroke-width="1.4"/>
+          <path d="M22 14v16M15 21l7-7 7 7" stroke="#F3E9E3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p class="main">点击上传正脸照</p>
+        <p class="hint">仅用于本次体验展示，不会用于其他用途</p>
+        <input type="file" id="fileInput" accept="image/*">
+      </div>
+
+      <div class="preview-stage" id="previewStage">
+        <div class="photo-frame"><img id="previewImg" src="" alt="你上传的照片"></div>
+        <div class="analyzing" id="analyzingRow">
+          <span class="dotpulse"></span><span class="dotpulse"></span><span class="dotpulse"></span>
+          <span>正在根据脸型匹配方向…</span>
+        </div>
+
+        <div class="results" id="resultsBox">
+          <div class="r-head">
+            <p class="label">推荐方向</p>
+            <h3>根据你的照片，这几个方向可以聊聊</h3>
+          </div>
+          <div class="style-grid" id="styleGrid"></div>
+          <p class="disclaimer">以上为方向性参考，非最终实拍效果；具体呈现会因发质、发量、烫染工艺不同而有差异，建议到店由发型师当面确认细节。</p>
+
+          <div class="poll" id="pollBox">
+            <p>如果到店后能做出接近这个方向的效果，你会更愿意去尝试吗？</p>
+            <div class="poll-opts">
+              <button data-v="会，挺愿意">会，挺愿意</button>
+              <button data-v="要看店和价格">要看店和价格</button>
+              <button data-v="还是有点犹豫">还是有点犹豫</button>
+            </div>
+            <div class="poll-thanks" id="pollThanks">谢谢你的反馈 🙂</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="modal-mask" id="modalMask">
+  <div class="modal">
+    <div id="modalForm">
+      <h3>预约到店</h3>
+      <p class="sub">留下联系方式，我们安排发型师跟你确认时间，聊聊「<span id="chosenStyleName"></span>」这个方向。</p>
+      <label for="mName">怎么称呼</label>
+      <input type="text" id="mName" placeholder="姓名/昵称">
+      <label for="mPhone">手机号</label>
+      <input type="tel" id="mPhone" placeholder="方便联系的号码">
+      <div class="row">
+        <button class="btn-primary" style="flex:1; justify-content:center;" onclick="submitLead()">提交预约</button>
+        <button class="modal-close" onclick="closeModal()">取消</button>
+      </div>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <div id="modalSuccessBody"></div>
+      <button class="btn-primary" style="width:100%; justify-content:center; margin-top:14px;" onclick="closeModal()">好的</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>发型效果由 AI 模型生成，用于方向参考；实际呈现以到店后发型师现场确认为准。</p>
+    <button class="admin-link" onclick="toggleAdmin()">查看反馈汇总</button>
+  </div>
+</footer>
+
+<div class="admin-panel" id="adminPanel">
+  <div class="box">
+    <strong>反馈汇总（仅内部查看）</strong>
+    <div id="adminContent">加载中…</div>
+  </div>
+</div>
+
+<script>
+// 部署好后端后，把这里换成你的后端公网地址（不要加最后的斜杠）
+// 本地开发默认是 http://localhost:3000
+const API_BASE = 'https://hairstyle-backend-dny0.onrender.com';
+
+const icons = {
+  'air-bangs-mid-layers': '<svg viewBox="0 0 100 60"><path d="M20 40 Q30 15 50 15 Q70 15 80 40" fill="none" stroke="#B99356" stroke-width="2.4"/><path d="M25 40 Q50 30 75 40" fill="none" stroke="#F3E9E3" stroke-width="2" opacity="0.6"/></svg>',
+  'collarbone-bob': '<svg viewBox="0 0 100 60"><path d="M25 20 Q25 45 35 50 Q50 55 65 50 Q75 45 75 20" fill="none" stroke="#B99356" stroke-width="2.4"/><path d="M25 20 Q50 8 75 20" fill="none" stroke="#F3E9E3" stroke-width="2" opacity="0.6"/></svg>',
+  'chestnut-long-wave': '<svg viewBox="0 0 100 60"><path d="M22 15 Q30 40 22 55 M35 15 Q45 40 35 55 M50 15 Q60 40 50 55 M65 15 Q75 40 65 55" fill="none" stroke="#B99356" stroke-width="2"/></svg>',
+  'french-bangs-layers': '<svg viewBox="0 0 100 60"><path d="M18 45 Q30 10 50 10 Q70 10 82 45" fill="none" stroke="#B99356" stroke-width="2.4"/><path d="M35 42 Q50 34 65 42" fill="none" stroke="#F3E9E3" stroke-width="2" opacity="0.6"/></svg>'
+};
+
+let currentUploadedFile = null;
+
+const uploadZone = document.getElementById('uploadZone');
+const fileInput = document.getElementById('fileInput');
+const previewStage = document.getElementById('previewStage');
+const previewImg = document.getElementById('previewImg');
+const analyzingRow = document.getElementById('analyzingRow');
+const resultsBox = document.getElementById('resultsBox');
+const styleGrid = document.getElementById('styleGrid');
+const pollBox = document.getElementById('pollBox');
+
+uploadZone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', handleFile);
+
+function handleFile(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  currentUploadedFile = file;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    previewImg.src = ev.target.result;
+    uploadZone.style.display = 'none';
+    previewStage.style.display = 'flex';
+    analyzingRow.style.display = 'flex';
+    resultsBox.style.display = 'none';
+    runRealGeneration(ev.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+async function runRealGeneration(dataUrl){
+  try{
+    // 1. 拿到发型方向列表（跟后端保持一致，不用前端硬编码）
+    const stylesResp = await fetch(`${API_BASE}/api/styles`);
+    if(!stylesResp.ok) throw new Error('样式列表获取失败');
+    const styleList = await stylesResp.json();
+
+    // 2. 上传照片，换成一个后端可访问的图片地址
+    const uploadResp = await fetch(`${API_BASE}/api/upload`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ imageBase64: dataUrl })
+    });
+    if(!uploadResp.ok) throw new Error('上传失败');
+    const { url: imageUrl } = await uploadResp.json();
+
+    // 3. 先把卡片骨架画出来（每张显示"生成中"，逐个填入真实结果）
+    analyzingRow.style.display = 'none';
+    resultsBox.style.display = 'block';
+    styleGrid.innerHTML = '';
+    styleList.forEach(s=>{
+      const card = document.createElement('div');
+      card.className = 'style-card';
+      card.id = 'card-' + s.key;
+      card.innerHTML = `
+        <div class="icon" id="icon-${s.key}">${icons[s.key] || ''}</div>
+        <h4>${s.name}</h4>
+        <p>${s.reason}</p>
+        <p style="font-size:11px;color:#B99356;margin-bottom:10px;" id="status-${s.key}">生成中…</p>
+        <button disabled id="btn-${s.key}" style="opacity:0.5;">预约这个方向</button>
+      `;
+      styleGrid.appendChild(card);
+    });
+    pollBox.style.display = 'block';
+
+    // 4. 依次调用每个风格的生成接口（避免并发太高触发速率限制，一个个来更稳）
+    for(const s of styleList){
+      try{
+        const genResp = await fetch(`${API_BASE}/api/generate-hairstyle`, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ imageUrl, styleKey: s.key })
+        });
+        const genData = await genResp.json();
+        const statusEl = document.getElementById('status-' + s.key);
+        const btnEl = document.getElementById('btn-' + s.key);
+        const iconEl = document.getElementById('icon-' + s.key);
+        if(!genResp.ok){
+          statusEl.textContent = genData.error || '生成失败';
+          statusEl.style.color = '#B75D52';
+          continue;
+        }
+        iconEl.innerHTML = `<img src="${genData.imageUrl}" alt="${s.name}效果预览" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">`;
+        statusEl.remove();
+        btnEl.disabled = false;
+        btnEl.style.opacity = '1';
+      }catch(innerErr){
+        console.error('单个风格生成失败', s.key, innerErr);
+        const statusEl = document.getElementById('status-' + s.key);
+        if(statusEl){ statusEl.textContent = '生成失败'; statusEl.style.color = '#B75D52'; }
+      }
+    }
+
+    // 生成完成后，把"预约"按钮接上点击事件
+    styleList.forEach(s=>{
+      const btnEl = document.getElementById('btn-' + s.key);
+      if(btnEl) btnEl.addEventListener('click', ()=> openModal(s.name));
+    });
+
+  }catch(err){
+    console.error('生成流程出错', err);
+    analyzingRow.innerHTML = `<span style="color:#B75D52;">生成暂时出了点问题，稍后再试试，或联系我们～</span>`;
+  }
+}
+
+document.querySelectorAll('.poll-opts button').forEach(btn=>{
+  btn.addEventListener('click', async ()=>{
+    document.querySelectorAll('.poll-opts button').forEach(b=>b.classList.remove('picked'));
+    btn.classList.add('picked');
+    try{
+      await window.storage.set('poll:'+Date.now()+':'+Math.random().toString(36).slice(2,7), btn.dataset.v, true);
+    }catch(err){ console.error('poll save failed', err); }
+    const thanks = document.getElementById('pollThanks');
+    thanks.style.display = 'block';
+    thanks.innerHTML = renderShotCard('意愿反馈', ['你的选择：' + btn.dataset.v]);
+  });
+});
+
+let currentStyle = '';
+const modalMask = document.getElementById('modalMask');
+
+function openModal(styleName){
+  currentStyle = styleName;
+  document.getElementById('chosenStyleName').textContent = styleName;
+  document.getElementById('modalForm').style.display = 'block';
+  document.getElementById('modalSuccess').style.display = 'none';
+  modalMask.style.display = 'flex';
+}
+function closeModal(){
+  modalMask.style.display = 'none';
+}
+const OWNER_WECHAT = '13736369153';
+const OWNER_NAME = '沙县';
+
+function renderShotCard(title, lines){
+  return `
+    <div class="shot-card">
+      <div class="shot-card-title">${title}</div>
+      ${lines.map(l=>`<div class="shot-card-line">${l}</div>`).join('')}
+      <div class="shot-card-foot">来自「镜前」发型体验</div>
+    </div>
+    <p class="wechat-tip">加微信 <strong>${OWNER_WECHAT}</strong>（备注/搜索：${OWNER_NAME}），把这张卡片截图发过去，我们会尽快联系你确认时间。</p>
+  `;
+}
+
+async function submitLead(){
+  const name = document.getElementById('mName').value.trim();
+  const phone = document.getElementById('mPhone').value.trim();
+  if(!phone){
+    alert('麻烦留一个手机号，方便我们联系你～');
+    return;
+  }
+  const lead = { name: name || '未留名', phone, style: currentStyle, time: new Date().toISOString() };
+
+  // Claude 预览环境里顺手也存一份，脱离该环境时会静默失败，不影响主流程
+  try{
+    await window.storage.set('leads:'+Date.now()+':'+Math.random().toString(36).slice(2,7), JSON.stringify(lead), true);
+  }catch(err){
+    console.error('lead save (storage) failed, continue with screenshot flow', err);
+  }
+
+  document.getElementById('modalForm').style.display = 'none';
+  const successBox = document.getElementById('modalSuccess');
+  successBox.style.display = 'block';
+  document.getElementById('modalSuccessBody').innerHTML = renderShotCard('预约信息', [
+    '称呼：' + lead.name,
+    '手机号：' + lead.phone,
+    '想尝试的方向：' + lead.style
+  ]);
+}
+
+let adminLoaded = false;
+async function toggleAdmin(){
+  const panel = document.getElementById('adminPanel');
+  const isOpen = panel.style.display === 'block';
+  panel.style.display = isOpen ? 'none' : 'block';
+  if(!isOpen){
+    await loadAdmin();
+  }
+}
+async function loadAdmin(){
+  const content = document.getElementById('adminContent');
+  content.textContent = '加载中…';
+  try{
+    const leadKeys = await window.storage.list('leads:', true);
+    const pollKeys = await window.storage.list('poll:', true);
+    const leadCount = leadKeys && leadKeys.keys ? leadKeys.keys.length : 0;
+    const pollCount = pollKeys && pollKeys.keys ? pollKeys.keys.length : 0;
+
+    let leadRows = '';
+    if(leadKeys && leadKeys.keys && leadKeys.keys.length){
+      for(const k of leadKeys.keys.slice(-15).reverse()){
+        try{
+          const r = await window.storage.get(k, true);
+          const d = JSON.parse(r.value);
+          leadRows += `<tr><td>${d.name}</td><td>${d.phone}</td><td>${d.style}</td></tr>`;
+        }catch(e){}
+      }
+    }
+
+    let pollRows = '';
+    if(pollKeys && pollKeys.keys && pollKeys.keys.length){
+      const tally = {};
+      for(const k of pollKeys.keys){
+        try{
+          const r = await window.storage.get(k, true);
+          tally[r.value] = (tally[r.value]||0)+1;
+        }catch(e){}
+      }
+      pollRows = Object.entries(tally).map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+    }
+
+    content.innerHTML = `
+      <p>预约留资：${leadCount} 条 &nbsp;·&nbsp; 意愿投票：${pollCount} 条</p>
+      ${leadRows ? `<table><tr><th>称呼</th><th>手机号</th><th>选择方向</th></tr>${leadRows}</table>` : ''}
+      ${pollRows ? `<table style="margin-top:16px;"><tr><th>意愿选项</th><th>次数</th></tr>${pollRows}</table>` : ''}
+    `;
+  }catch(err){
+    content.textContent = '暂无数据，或加载失败。';
+  }
+}
+</script>
+
+</body>
+</html>
