@@ -30,7 +30,7 @@ const STYLE_PRESETS = [
     reason: '适合想要减龄、修饰额头比例的方向',
     gender: 'female',
     haircut: 'long layered hair with soft wispy air bangs',
-    hair_color: 'natural black'
+    hair_color: 'Black'
   },
   {
     key: 'collarbone-bob',
@@ -46,7 +46,7 @@ const STYLE_PRESETS = [
     reason: '适合想显气质、日常打理不想太麻烦的方向',
     gender: 'female',
     haircut: 'long loose wavy curls',
-    hair_color: 'chestnut brown'
+    hair_color: 'Chestnut'
   },
   {
     key: 'french-bangs-layers',
