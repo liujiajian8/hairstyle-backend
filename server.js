@@ -38,7 +38,7 @@ const STYLE_PRESETS = [
     reason: '适合想利落一点、又不想剪太短的方向',
     gender: 'female',
     haircut: 'collarbone-length bob haircut, slightly inward curled ends',
-    hair_color: 'natural black'
+    hair_color: 'Black'
   },
   {
     key: 'chestnut-long-wave',
@@ -54,7 +54,7 @@ const STYLE_PRESETS = [
     reason: '适合想调整脸型比例、增加轮廓感的方向',
     gender: 'female',
     haircut: 'french curtain bangs with layered medium length haircut',
-    hair_color: 'natural black'
+    hair_color: 'Black'
   }
 ];
 
