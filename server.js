@@ -29,7 +29,7 @@ const STYLE_PRESETS = [
     name: '空气刘海 + 中长层次',
     reason: '适合想要减龄、修饰额头比例的方向',
     gender: 'female',
-    haircut: 'long layered hair with soft wispy air bangs',
+    haircut: 'Layered',
     hair_color: 'Black'
   },
   {
@@ -37,7 +37,7 @@ const STYLE_PRESETS = [
     name: '锁骨波波头',
     reason: '适合想利落一点、又不想剪太短的方向',
     gender: 'female',
-    haircut: 'collarbone-length bob haircut, slightly inward curled ends',
+    haircut: 'Bob',
     hair_color: 'Black'
   },
   {
@@ -45,7 +45,7 @@ const STYLE_PRESETS = [
     name: '低调栗棕长卷发',
     reason: '适合想显气质、日常打理不想太麻烦的方向',
     gender: 'female',
-    haircut: 'long loose wavy curls',
+    haircut: 'Wavy',
     hair_color: 'Chestnut'
   },
   {
@@ -53,7 +53,7 @@ const STYLE_PRESETS = [
     name: '高层次法式刘海',
     reason: '适合想调整脸型比例、增加轮廓感的方向',
     gender: 'female',
-    haircut: 'french curtain bangs with layered medium length haircut',
+    haircut: 'Side-Swept Bangs',
     hair_color: 'Black'
   }
 ];
